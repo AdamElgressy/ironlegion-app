@@ -1,14 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import { LatLngTuple } from "leaflet";
+import Map from "./components/Map";
+import reportWebVitals from "./reportWebVitals";
+import "leaflet/dist/leaflet.css";
+
+const AzrieliPos: LatLngTuple = [32.07, 34.79];
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Map pos={AzrieliPos} />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
