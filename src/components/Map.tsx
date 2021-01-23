@@ -1,9 +1,8 @@
-import { LatLngTuple } from "leaflet";
+import { LatLngTuple, Icon } from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import Avatar from "./Avatar";
 
-const Map = (props: { pos: LatLngTuple }) => {
-  const { pos } = props;
+const Map = (props: { pos: any; avatar: any }) => {
+  const { pos, avatar } = props;
 
   return (
     <MapContainer
@@ -16,7 +15,8 @@ const Map = (props: { pos: LatLngTuple }) => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={pos} icon={Avatar}>
+
+      <Marker position={pos} icon={avatar}>
         <Popup>
           Run, <br /> Adam!
         </Popup>

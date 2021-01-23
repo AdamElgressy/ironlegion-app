@@ -1,5 +1,5 @@
 import L from "leaflet";
-import IronManImg from "../img/iron_man.png";
+import IronManImg from "../../img/iron_man.png";
 
 const IronManAvatar = new L.Icon({
   iconUrl: IronManImg,

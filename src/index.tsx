@@ -2,15 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { LatLngTuple } from "leaflet";
-import Map from "./components/Map";
+import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import "leaflet/dist/leaflet.css";
 
-const AzrieliPos: LatLngTuple = [32.07, 34.79];
-
 ReactDOM.render(
   <React.StrictMode>
-    <Map pos={AzrieliPos} />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
