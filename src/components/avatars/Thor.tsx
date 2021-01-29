@@ -1,9 +1,19 @@
 import L from "leaflet";
 import ThorImg from "../../img/thor.png";
+import locations from "../../utils/locations";
 
-const ThorAvatar = new L.Icon({
+const icon = new L.Icon({
   iconUrl: ThorImg,
-  iconSize: new L.Point(70, 70),
+  iconSize: new L.Point(60, 60),
 });
+
+const ThorAvatar = {
+  name: "Thor",
+  img: ThorImg,
+  avatar: {
+    icon,
+    position: locations.oslo,
+  },
+};
 
 export default ThorAvatar;
