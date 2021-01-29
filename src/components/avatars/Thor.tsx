@@ -1,3 +1,4 @@
+import Avatar from "./Avatar";
 import L from "leaflet";
 import ThorImg from "../../img/thor.png";
 import locations from "../../utils/locations";
@@ -7,7 +8,7 @@ const icon = new L.Icon({
   iconSize: new L.Point(60, 60),
 });
 
-const ThorAvatar = {
+const ThorAvatar: Avatar = {
   name: "Thor",
   img: ThorImg,
   avatar: {

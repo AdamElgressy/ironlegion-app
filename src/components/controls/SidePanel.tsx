@@ -3,7 +3,7 @@ import { Drawer } from "@material-ui/core";
 import ToggleControls from "./ToggleControls";
 import HeroAdder from "./HeroAdder";
 
-const SidePanel = (props: any) => {
+const SidePanel = (props: { addHero: Function }) => {
   const { addHero } = props;
 
   const [open, setOpen] = useState(false);

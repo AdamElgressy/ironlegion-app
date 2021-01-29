@@ -1,12 +1,13 @@
+import Avatar from "../avatars/Avatar";
 import IronMan from "../avatars/IronMan";
 import Thor from "../avatars/Thor";
 import Adam from "../avatars/Adam";
 
 const heroes = [IronMan, Thor, Adam];
 
-const HeroAdder = (props: any) => {
+const HeroAdder = (props: { addHero: Function }) => {
   const { addHero } = props;
-  const avatarChoices = heroes.map((hero: any) => (
+  const avatarChoices = heroes.map((hero: Avatar) => (
     <img
       alt={hero.name}
       src={hero.img}

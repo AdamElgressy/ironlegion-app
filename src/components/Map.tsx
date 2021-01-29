@@ -6,21 +6,24 @@ import {
   Popup,
   ZoomControl,
 } from "react-leaflet";
+import locations from "../utils/locations";
 
-const Map = (props: { mapStart: any; avatars: any }) => {
-  const { mapStart, avatars } = props;
+const Map = (props: { avatars: { position: LatLngTuple; icon: Icon }[] }) => {
+  const { avatars } = props;
 
-  const markers = avatars.map((avatar: any) => (
-    <Marker position={avatar.position} icon={avatar.icon} draggable>
-      <Popup>
-        Run, <br /> Adam!
-      </Popup>
-    </Marker>
-  ));
+  const markers = avatars.map(
+    (avatar: { position: LatLngTuple; icon: Icon }) => (
+      <Marker position={avatar.position} icon={avatar.icon} draggable>
+        <Popup>
+          Run, <br /> Adam!
+        </Popup>
+      </Marker>
+    )
+  );
 
   return (
     <MapContainer
-      center={mapStart}
+      center={locations.azrieli}
       zoom={3}
       scrollWheelZoom={true}
       zoomControl={false}

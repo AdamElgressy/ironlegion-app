@@ -1,10 +1,12 @@
+import { LatLngTuple, Icon } from "leaflet";
 import { useState } from "react";
 import SidePanel from "./controls/SidePanel";
 import Map from "./Map";
-import { LatLngTuple } from "leaflet";
 
 const App = () => {
-  const [avatars, setAvatars] = useState(Array);
+  const [avatars, setAvatars] = useState<
+    { position: LatLngTuple; icon: Icon }[]
+  >([]);
 
   return (
     <div
@@ -21,7 +23,7 @@ const App = () => {
           position: "absolute",
         }}
       >
-        <Map mapStart={[32.07, 34.79]} avatars={avatars} />
+        <Map avatars={avatars} />
       </div>
       <div
         style={{
@@ -30,7 +32,11 @@ const App = () => {
           position: "absolute",
         }}
       >
-        <SidePanel addHero={(hero: any) => setAvatars([...avatars, hero])} />
+        <SidePanel
+          addHero={(hero: { position: LatLngTuple; icon: Icon }) =>
+            setAvatars([...avatars, hero])
+          }
+        />
       </div>
     </div>
   );
