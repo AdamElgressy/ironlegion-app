@@ -27,7 +27,7 @@ const Map = (props: { avatars: { position: LatLngTuple; icon: Icon }[] }) => {
       zoom={3}
       scrollWheelZoom={true}
       zoomControl={false}
-      style={{ height: "100%", width: "100%" }}
+      style={{ height: "100%", width: "100%" }} // Required to work.
     >
       <ZoomControl position="bottomright"></ZoomControl>
       <TileLayer

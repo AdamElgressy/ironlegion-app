@@ -1,30 +1,23 @@
+import styled from "@emotion/styled";
 import { Tooltip, Fab } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import { useState } from "react";
+import Add from "@material-ui/icons/Add";
 
 const ToggleControls = (props: any) => {
   const { openPanel } = props;
-  const [color, setColor] = useState("gray");
 
   return (
-    <div>
-      <Tooltip title="Controls" aria-label="controls">
-        <Fab
-          onClick={() => openPanel()}
-          onMouseOver={() => setColor("white")}
-          onMouseOut={() => setColor("gray")}
-          style={{
-            cursor: "pointer",
-            height: "60px",
-            width: "60px",
-            color: color,
-          }}
-        >
-          <MenuIcon style={{ fontSize: "40px" }} />
-        </Fab>
-      </Tooltip>
-    </div>
+    <Tooltip title="Add hero" aria-label="add-hero">
+      <StyledFab onClick={() => openPanel()}>
+        <Add />
+      </StyledFab>
+    </Tooltip>
   );
 };
+
+const StyledFab = styled(Fab)`
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+`;
 
 export default ToggleControls;

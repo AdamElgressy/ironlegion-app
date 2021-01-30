@@ -1,6 +1,7 @@
+import styled from "@emotion/styled";
 import { LatLngTuple, Icon } from "leaflet";
 import { useState } from "react";
-import SidePanel from "./controls/SidePanel";
+import HeroAdder from "./controls/HeroAdder";
 import Map from "./Map";
 
 const App = () => {
@@ -9,37 +10,37 @@ const App = () => {
   >([]);
 
   return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          zIndex: 1,
-          position: "absolute",
-        }}
-      >
+    <Wrapper>
+      <MapContainer>
         <Map avatars={avatars} />
-      </div>
-      <div
-        style={{
-          zIndex: 2,
-          margin: "10px",
-          position: "absolute",
-        }}
-      >
-        <SidePanel
+      </MapContainer>
+      <HeroAdderContainer>
+        <HeroAdder
           addHero={(hero: { position: LatLngTuple; icon: Icon }) =>
             setAvatars([...avatars, hero])
           }
         />
-      </div>
-    </div>
+      </HeroAdderContainer>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  height: 100%;
+  display: flex;
+`;
+
+const MapContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  position: absolute;
+`;
+
+const HeroAdderContainer = styled.div`
+  z-index: 2;
+  margin: 10px;
+  position: absolute;
+`;
 
 export default App;

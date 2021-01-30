@@ -1,3 +1,7 @@
+import styled from "@emotion/styled";
+import { useState } from "react";
+import { Dialog } from "@material-ui/core";
+import ToggleControls from "./ToggleControls";
 import Avatar from "../avatars/Avatar";
 import IronMan from "../avatars/IronMan";
 import Thor from "../avatars/Thor";
@@ -7,41 +11,40 @@ const heroes = [IronMan, Thor, Adam];
 
 const HeroAdder = (props: { addHero: Function }) => {
   const { addHero } = props;
+  const [open, setOpen] = useState(false);
+
   const avatarChoices = heroes.map((hero: Avatar) => (
-    <img
-      alt={hero.name}
+    <AvatarImage
       src={hero.img}
-      onClick={() => addHero(hero.avatar)}
-      style={{
-        height: "120px",
-        width: "auto",
-        padding: "5px",
-        cursor: "pointer",
+      onClick={() => {
+        addHero(hero.avatar);
+        setOpen(false);
       }}
     />
   ));
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        font: "30px Impact, sans-serif",
-        height: "100%",
-        width: "100%",
-      }}
-    >
-      <h1>Choose your hero</h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        {avatarChoices}
-      </div>
-    </div>
+    <>
+      <ToggleControls openPanel={() => setOpen(true)} />
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <AvatarChoicesContainer>{avatarChoices}</AvatarChoicesContainer>
+      </Dialog>
+    </>
   );
 };
+
+const AvatarImage = styled.img`
+  height: 120px;
+  width: auto;
+  padding: 5px;
+  cursor: pointer;
+`;
+
+const AvatarChoicesContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 500px;
+`;
 
 export default HeroAdder;
