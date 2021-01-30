@@ -17,7 +17,7 @@ const HeroAdder = (props: { addHero: Function }) => {
     <AvatarImage
       src={hero.img}
       onClick={() => {
-        addHero(hero.avatar);
+        addHero(hero);
         setOpen(false);
       }}
     />

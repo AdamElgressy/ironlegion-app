@@ -1,14 +1,12 @@
 import { Icon, LatLngTuple } from "leaflet";
-
-interface some {
-  icon: Icon;
-  position: LatLngTuple;
-}
+interface mission {}
 
 interface Avatar {
   name: string;
   img: string;
-  avatar: some;
+  icon: Icon;
+  position: LatLngTuple;
+  missions: mission[];
 }
 
 export default Avatar;

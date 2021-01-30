@@ -11,10 +11,9 @@ const icon = new L.Icon({
 const AdamAvatar: Avatar = {
   name: "Adam",
   img: AdamImg,
-  avatar: {
-    icon,
-    position: locations.abbottabad,
-  },
+  icon,
+  position: locations.abbottabad,
+  missions: [],
 };
 
 export default AdamAvatar;

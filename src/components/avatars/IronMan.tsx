@@ -11,10 +11,9 @@ const icon = new L.Icon({
 const IronManAvatar: Avatar = {
   name: "Iron Man",
   img: IronManImg,
-  avatar: {
-    icon,
-    position: locations.avengers,
-  },
+  icon,
+  position: locations.avengers,
+  missions: [],
 };
 
 export default IronManAvatar;

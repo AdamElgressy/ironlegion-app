@@ -1,26 +1,40 @@
 import styled from "@emotion/styled";
-import { LatLngTuple, Icon } from "leaflet";
 import { useState } from "react";
 import HeroAdder from "./controls/HeroAdder";
 import Map from "./Map";
+import Avatar from "./avatars/Avatar";
+
+import BottomPanel from "./controls/BottomPanel";
 
 const App = () => {
-  const [avatars, setAvatars] = useState<
-    { position: LatLngTuple; icon: Icon }[]
-  >([]);
+  const [avatars, setAvatars] = useState<Avatar[]>([]);
+  const [selectedAvatarName, setSelectedAvatarName] = useState<string>("");
+  const [bottomPanelOpen, setBottomPanelOpen] = useState<boolean>(false);
 
   return (
     <Wrapper>
       <MapContainer>
-        <Map avatars={avatars} />
-      </MapContainer>
-      <HeroAdderContainer>
-        <HeroAdder
-          addHero={(hero: { position: LatLngTuple; icon: Icon }) =>
-            setAvatars([...avatars, hero])
-          }
+        <Map
+          avatars={avatars}
+          selectAvatar={(name: string) => {
+            setSelectedAvatarName(name);
+            setBottomPanelOpen(true);
+          }}
         />
+      </MapContainer>
+
+      <HeroAdderContainer>
+        <HeroAdder addHero={(hero: Avatar) => setAvatars([...avatars, hero])} />
       </HeroAdderContainer>
+
+      <BottomPanelContainer>
+        <BottomPanel
+          avatars={avatars}
+          open={bottomPanelOpen}
+          name={selectedAvatarName}
+          close={() => setBottomPanelOpen(false)}
+        />
+      </BottomPanelContainer>
     </Wrapper>
   );
 };
@@ -41,6 +55,14 @@ const HeroAdderContainer = styled.div`
   z-index: 2;
   margin: 10px;
   position: absolute;
+`;
+
+const BottomPanelContainer = styled.div`
+  z-index: 3;
+  position: absolute;
+  bottom: 0;
+  height: 30%;
+  width: 100%;
 `;
 
 export default App;
