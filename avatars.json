@@ -1,0 +1,33 @@
+{
+    "avatars": [
+      {
+        "id": "1",
+        "type": "iron_man",
+        "name": "My First Avatar",
+        "position": "23.23, 44.44",
+        "missions": [
+            {
+              "id": "1",
+              "name": "First Mission Name",
+              "end_position": "34.35, 12.56"
+            },
+            {
+              "id": "2",
+              "name": "Take Over The World",
+              "end_position": "83.11, 56.00"
+            }
+          ],
+        "current_mission": "1",
+        "speed": "10"
+      },
+      {
+        "id": "2",
+        "type": "thor",
+        "name": "Thor Avatar",
+        "positio": "10.10, 10.10",
+        "missions": [],
+        "current_mission": "null",
+        "speed": "0"
+      }
+    ]
+  }
