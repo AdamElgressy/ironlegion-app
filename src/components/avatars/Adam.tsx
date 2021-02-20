@@ -1,6 +1,6 @@
 import Avatar from "./Avatar";
 import L from "leaflet";
-import AdamImg from "../../img/adam.png";
+import AdamImg from "../../images/adam.png";
 import locations from "../../utils/locations";
 
 const icon = new L.Icon({

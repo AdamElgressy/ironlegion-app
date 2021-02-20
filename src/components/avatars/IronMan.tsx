@@ -1,6 +1,6 @@
 import Avatar from "./Avatar";
 import L from "leaflet";
-import IronManImg from "../../img/iron_man.png";
+import IronManImg from "../../images/iron_man.png";
 import locations from "../../utils/locations";
 
 const icon = new L.Icon({
