@@ -1,4 +1,4 @@
-import { LatLngTuple } from "leaflet";
+import { LatLngTuple } from 'leaflet';
 
 const locations: { [key: string]: LatLngTuple } = {
   azrieli: [32.07, 34.79],

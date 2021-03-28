@@ -26,5 +26,13 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "baseUrl": "src",
+  "paths": {
+    "@avatars": ["features/avatars"],
+    "@features/*": ["/features/*"],
+    "@store/*": ["store/*"],
+    "@utils/*": ["utils/*"],
+    "@assets/*": ["assets/*"]
+  }
 }
