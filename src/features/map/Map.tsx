@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useAppSelector } from "../../store/hooks";
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import locations from '../../utils/locations';
@@ -9,20 +9,22 @@ const avatarEventHandler = (avatar: Avatar) => ({
   click: () => console.log(`Hi, I'm ${avatar.name}`),
 });
 
-const createMarker = (avatar: Avatar) => (
-  <Marker
-    position={avatar.position}
-    icon={AvatarIcon(avatar.type)}
+const CreateMarker = (avatar: Avatar) => {
+  const { position, type, uuid } = avatar;
+  const icon = useMemo(() => AvatarIcon(type), [type]);
+  return <Marker
+    position={position}
+    icon={icon}
     draggable={false}
     eventHandlers={avatarEventHandler(avatar)}
-    key={avatar.uuid}
+    key={uuid}
   />
-);
+};
 
 const Map = () => {
   const avatars = useAppSelector((state) => state.avatars);
 
-  const markers = Object.keys(avatars).map((uuid) => createMarker(avatars[uuid]));
+  const markers = Object.keys(avatars).map((uuid) => CreateMarker(avatars[uuid]));
 
   return (
     <MapContainer
