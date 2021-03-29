@@ -26,7 +26,14 @@ const MissionAdder = () => {
 
 
   return (
-    <button onClick={handleClick}>Add Mission</button>
+    <>
+      <button onClick={handleClick}>Add Mission</button>
+      <div>
+        lat: {newMissionPosition.lat.toFixed(2)}
+        <br/>
+        lng: {newMissionPosition.lng.toFixed(2)}
+      </div>
+    </>
     // <form onSubmit={handleSubmit(onSubmit)}>
     //   Name:
     //   <input name={'name'} ref={register({ required: true })} />
