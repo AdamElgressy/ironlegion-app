@@ -3,11 +3,11 @@ import { AppThunk } from '../../store/hooks';
 import { Mission } from './types';
 import { addMission as addMissionToAvatar } from '../avatars/avatarsSlice';
 
-interface State {
+interface MissionsState {
   [key: string]: Mission;
 }
 
-const initialState: State = {};
+const initialState: MissionsState = {};
 
 export const missionsSlice = createSlice({
   name: 'missions',

@@ -4,11 +4,11 @@ import { MissionResolution, MissionStatus } from './common';
 import { AppThunk } from '../../store/hooks';
 import { Avatar } from './types';
 
-interface State {
+interface AvatarsState {
   [key: string]: Avatar;
 }
 
-const initialState: State = {
+const initialState: AvatarsState = {
   101: {
     uuid: '101',
     name: 'Thor',
@@ -101,7 +101,7 @@ export const avatarsSlice = createSlice({
 });
 
 
-const setMissionState = (state: State, action: PayloadAction<{ avatarUuid: string }>, status: MissionStatus) => {
+const setMissionState = (state: AvatarsState, action: PayloadAction<{ avatarUuid: string }>, status: MissionStatus) => {
   const { avatarUuid } = action.payload;
   if (!state[avatarUuid]) return;
 
