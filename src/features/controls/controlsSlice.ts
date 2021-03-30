@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Position } from '../../utils/geo/types';
 
 export interface ControlsState {
+  selectedAvatar: string | null,
   newMissionPosition: Position,
   isMissionAdderOpen: boolean,
 }
 
 const initialState: ControlsState = {
+  selectedAvatar: null,
   newMissionPosition: { lat: 10, lng: 50},
   isMissionAdderOpen: true,
 }
@@ -16,7 +18,11 @@ export const controlsSlice = createSlice({
   initialState,
 
   reducers: {
-    setNewMissionPosition: (state, action: PayloadAction<Position>) => {
+    selectAvatar: (state, action: PayloadAction<{ uuid: string}>) => {
+      state.selectedAvatar = action.payload.uuid;
+    },
+
+    setNewMissionPosition: (state, action: PayloadAction<Position>) => { // TODO: Change payload to obj.
       state.newMissionPosition = action.payload;
     },
 
@@ -30,6 +36,11 @@ export const controlsSlice = createSlice({
   }
 });
 
-export const { setNewMissionPosition } = controlsSlice.actions;
+export const {
+  selectAvatar,
+  setNewMissionPosition,
+  openMissionAdder,
+  closeMissionAdder
+} = controlsSlice.actions;
 
 export default controlsSlice.reducer;

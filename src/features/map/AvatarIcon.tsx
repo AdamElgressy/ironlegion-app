@@ -13,7 +13,7 @@ const getImage = (type: string): string => avatarImages[type] ?? UnknownImg;
 const AvatarIcon = (type: string) => new Icon({
   iconUrl: getImage(type),
   iconSize: [50, 50],
-  iconAnchor: [0,25],
+  iconAnchor: [25,25],
 });
 
 export default AvatarIcon;

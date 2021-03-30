@@ -3,6 +3,7 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import locations from '../../utils/locations';
 import MissionMarker from './MissionMarker';
 import AvatarMarkers from './AvatarMarkers';
+import AvatarMissionMakers from './AvatarMissionMarkers';
 
 const Map = () => {
   return (
@@ -18,9 +19,10 @@ const Map = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <AvatarMarkers />
       <MissionMarker />
-      
+      <AvatarMarkers />
+      <AvatarMissionMakers />
+
     </MapContainer>
   );
 };

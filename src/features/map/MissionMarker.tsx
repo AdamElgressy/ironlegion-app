@@ -2,14 +2,15 @@ import React, { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { LeafletEvent, Icon, LatLng } from 'leaflet';
 import { Marker } from 'react-leaflet';
-import shieldImg from '../../assets/shield.png';
+import markerImg from '../../assets/marker.png';
 import { Position } from '../../utils/geo/types';
 import { setNewMissionPosition } from '../controls/controlsSlice';
 
 
 const MarkerIcon = () =>  new Icon({
-  iconUrl: shieldImg,
+  iconUrl: markerImg,
   iconSize: [50, 50],
+  iconAnchor: [25, 50]
 });
 
 
