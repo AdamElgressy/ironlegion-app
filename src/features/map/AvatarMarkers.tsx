@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Marker } from 'react-leaflet';
 import { Avatar } from '../avatars/types';

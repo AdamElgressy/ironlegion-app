@@ -28,7 +28,8 @@ const MissionMarker = () => {
   const icon = useMemo(() => MarkerIcon(), []);
   const dispatch = useAppDispatch();
   const newMissionPosition = useAppSelector(state => state.controls.newMissionPosition);
-  if (!newMissionPosition) return <></>;
+  const selectedAvatar = useAppSelector(state => state.controls.selectedAvatar);
+  if (!selectedAvatar) return <></>;
 
   return (
     <Marker

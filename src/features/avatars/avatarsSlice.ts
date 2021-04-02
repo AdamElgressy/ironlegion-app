@@ -127,17 +127,3 @@ export const resolveCurrentMissionThunk = (avatarUuid: string, resolution: Missi
   dispatch(resolveCurrentMission({ avatarUuid, resolution }));
   dispatch(startNextMission({ avatarUuid }));
 };
-
-export const moveTunk = (avatarNewPositions :{[key: string]: Position}): AppThunk => (dispatch, getState) => {
-  dispatch(move(avatarNewPositions));
-  const avatars = getState().avatars;
-  const missions = getState().missions;
-  const movedAvatarUuids = Object.keys(avatarNewPositions);
-
-  movedAvatarUuids.forEach(uuid => {
-    const currentMissionUuid = avatars[uuid].currentMission?.uuid;
-    if (!currentMissionUuid) return;
-    if (missions[currentMissionUuid].endPosition !== avatars[uuid].position) return;
-    dispatch(resolveCurrentMissionThunk(uuid, MissionResolution.COMPLETED));
-  });
-}

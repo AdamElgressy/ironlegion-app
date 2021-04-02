@@ -25,4 +25,3 @@ export const calculateNewPosition = (current: Position, end: Position, distance:
     lng: newPosition.longitude,
   };
 };
-  
