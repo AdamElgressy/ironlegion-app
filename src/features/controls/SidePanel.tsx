@@ -16,10 +16,6 @@ const Container = styled.div`
 //   width: 'auto';
 // `;
 
-const toggleMissionAdder = () => {
-  
-}
-
 
 const SidePanel = () => {
  // const avatars = useAppSelector(state => state.avatars);
