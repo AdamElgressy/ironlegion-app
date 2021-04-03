@@ -12,8 +12,7 @@ const initialState: ControlsState = {
   showMissions: true,
   selectedAvatar: null,
   newMissionPosition: { lat: 47, lng: 10},
-  isMissionAdderOpen: true,
-
+  isMissionAdderOpen: false,
 }
 
 export const controlsSlice = createSlice({
@@ -33,11 +32,11 @@ export const controlsSlice = createSlice({
       state.newMissionPosition = action.payload;
     },
 
-    openMissionAdder: (state, action) => {
+    openMissionAdder: (state, action: PayloadAction<void>) => {
       state.isMissionAdderOpen = true;
     },
 
-    closeMissionAdder: (state, action) => {
+    closeMissionAdder: (state, action: PayloadAction<void>) => {
       state.isMissionAdderOpen = false;
     },
 

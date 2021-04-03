@@ -3,8 +3,7 @@ import styled from '@emotion/styled';
 import Map from './features/map/Map';
 import AvatarAdder from './features/controls/AvatarAdder';
 // import ShowMissionButton from './features/controls/ShowMissionsButton';
-import BottomPanel from './features/controls/BottomPanel';
-import useMover from './features/mover/useMover';
+import SidePanel from './features/controls/SidePanel';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -31,13 +30,7 @@ const AvatarAdderContainer = styled.div`
 // `;
 
 
-const refreshRate = 30; // ms
-const speed = 1000; // km/s
-
-
 const App = () => {
-  useMover(speed, refreshRate);
-
   return ( 
     <Wrapper>
       <AvatarAdderContainer>
@@ -48,7 +41,7 @@ const App = () => {
         <ShowMissionButton />
       </ShowMissionContainer> */}
 
-      <BottomPanel />
+      <SidePanel />
 
       <MapContainer>
         <Map />

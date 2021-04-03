@@ -1,9 +1,19 @@
 import React from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, useMapEvents, TileLayer } from 'react-leaflet';
 import locations from '../../utils/locations';
-import MissionMarker from './MissionMarker';
-import AvatarMarkers from './AvatarMarkers';
-import AvatarMissionMakers from './AvatarMissionMarkers';
+import { useAppDispatch } from '../../store/hooks';
+import { unSelectAvatar } from '../controls/controlsSlice';
+import Markers from './markers/Markers';
+
+const MapEvents = () => {
+  const dispatch = useAppDispatch();
+
+  useMapEvents({
+    click: (e) => dispatch(unSelectAvatar()),
+  });
+
+  return null;
+};
 
 const Map = () => {
   return (
@@ -18,11 +28,8 @@ const Map = () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
-      <MissionMarker />
-      <AvatarMarkers />
-      <AvatarMissionMakers />
-
+      <MapEvents />
+      <Markers />
     </MapContainer>
   );
 };
