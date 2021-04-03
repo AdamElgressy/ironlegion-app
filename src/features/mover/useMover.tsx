@@ -26,9 +26,9 @@ const Mover = (speed: number, refreshRate: number) => {
 
       const currentMission = missions[currentMissionUuid];
       const endPosition = currentMission.endPosition;
-      const newPosition = calculateNewPosition(avatar.position, endPosition, distance);
+      const newPosition = calculateNewPosition(avatar.currentPosition, endPosition, distance);
     
-      if (newPosition === avatar.position) return;
+      if (newPosition === avatar.currentPosition) return;
       newPositions[uuid] = newPosition;
     });
     return newPositions;

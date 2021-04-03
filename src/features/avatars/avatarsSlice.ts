@@ -3,6 +3,7 @@ import { Position } from '../../utils/geo/types';
 import { MissionResolution, MissionStatus } from './common';
 import { AppThunk } from '../../store/hooks';
 import { Avatar } from './types';
+import { calculateDistance } from '../../utils/geo/calculator';
 
 interface AvatarsState {
   [key: string]: Avatar;
@@ -13,12 +14,13 @@ const initialState: AvatarsState = {
     uuid: '101',
     name: 'Thor',
     type: 'THOR',
-    position: { lat: 32.07, lng: 34.79, },
+    currentPosition: { lat: 32.07, lng: 34.79, },
     futureMissions: [],
     pastMissions: [],
     currentMission: null,
   },
 };
+
 
 export const avatarsSlice = createSlice({
   name: 'avatars',
@@ -36,64 +38,81 @@ export const avatarsSlice = createSlice({
         uuid,
         name,
         type,
-        position,
+        currentPosition: position,
         futureMissions: [],
         pastMissions: [],
         currentMission: null,
       };
     },
 
+
     removeAvatar: (state, action: PayloadAction<{uuid: string}>) => {
       delete state[action.payload.uuid];
     },
 
+
     move: (state, action: PayloadAction<{[key: string]: Position}>) => {
       const uuids = Object.keys(action.payload);
-      uuids.forEach(uuid => state[uuid].position = action.payload[uuid]);
+      uuids.forEach(uuid => state[uuid].currentPosition = action.payload[uuid]);
     },
+
 
     addMission: (state, action: PayloadAction<{ avatarUuid: string, missionUuid: string }>) => {
       const { avatarUuid, missionUuid } = action.payload;
       if (!state[avatarUuid]) return;
-      if (!state[avatarUuid].currentMission) {
-        state[avatarUuid].currentMission = { uuid: missionUuid, status: MissionStatus.IN_PROGESS}
-      } else {
+      if (state[avatarUuid].currentMission) {
         state[avatarUuid].futureMissions.push(missionUuid);
+        return;
+      }
+
+      state[avatarUuid].currentMission = {
+        uuid: missionUuid,
+        startPosition: state[avatarUuid].currentPosition,
+        status: MissionStatus.IN_PROGESS
       }
     },
+
 
     startNextMission: (state, action: PayloadAction<{ avatarUuid: string }>) => {
       const { avatarUuid } = action.payload;
       if (!state[avatarUuid]) return;
 
       const nextMissionUuid = state[avatarUuid].futureMissions.shift();
-
       if (!nextMissionUuid){
         state[avatarUuid].currentMission = null;
-      } else {
-        state[avatarUuid].currentMission = {
-          uuid: nextMissionUuid,
-          status: MissionStatus.IN_PROGESS,
-        };
+        return;
+      }
+
+      state[avatarUuid].currentMission = {
+        uuid: nextMissionUuid,
+        startPosition: state[avatarUuid].currentPosition,
+        status: MissionStatus.IN_PROGESS,
       };
     },
+
 
     pauseCurrentMission: (state, action: PayloadAction<{ avatarUuid: string }>) => setMissionState(
       state, action, MissionStatus.PAUSED
     ),
 
+
     resumeCurrentMission: (state, action: PayloadAction<{ avatarUuid: string }>) => setMissionState(
       state, action, MissionStatus.IN_PROGESS
     ),
 
+
     resolveCurrentMission: (state, action: PayloadAction<{ avatarUuid: string, resolution: MissionResolution}>) => {
       const { avatarUuid, resolution } = action.payload;
-      if (!state[avatarUuid]) return;
-      if (!state[avatarUuid].currentMission) return;
+      const avatar = state[avatarUuid];
+      if (!avatar) return;
+      if (!avatar.currentMission) return;
 
       state[avatarUuid].pastMissions.push({
-        uuid: state[avatarUuid].currentMission!.uuid,
-        resolution
+        uuid: avatar.currentMission!.uuid,
+        startPosition: avatar.currentMission.startPosition,
+        endPosition: avatar.currentPosition,
+        distance: getDistanceTraveledInCurrentMission(avatar),
+        resolution,
       });
     },
 
@@ -108,6 +127,16 @@ const setMissionState = (state: AvatarsState, action: PayloadAction<{ avatarUuid
   if (!state[avatarUuid].currentMission) return;
   state[avatarUuid].currentMission!.status = status;
 };
+
+
+const getDistanceTraveledInCurrentMission = (avatar: Avatar): number => {
+  if (!avatar.currentMission) return 0;
+  const [ previousMission ] = avatar.pastMissions.slice(-1);
+  if (!previousMission) {
+    return calculateDistance(avatar.currentMission.startPosition, avatar.currentPosition);
+  }
+  return calculateDistance(previousMission.endPosition, avatar.currentPosition);
+}
 
 
 export const {

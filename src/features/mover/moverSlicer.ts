@@ -43,7 +43,7 @@ export const moveThunk = (avatarNewPositions :{[key: string]: Position}): AppThu
   movedAvatarUuids.forEach(uuid => {
     const currentMissionUuid = avatars[uuid].currentMission?.uuid;
     if (!currentMissionUuid) return;
-    if (missions[currentMissionUuid].endPosition !== avatars[uuid].position) return;
+    if (missions[currentMissionUuid].endPosition !== avatars[uuid].currentPosition) return;
     dispatch(resolveCurrentMissionThunk(uuid, MissionResolution.COMPLETED));
   });
 }

@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { Drawer } from '@material-ui/core';
-import Remove from '@material-ui/icons/Remove';
-import { closeMissionAdder, openMissionAdder, unSelectAvatar } from './controlsSlice';
+import { closeMissionAdder, openMissionAdder } from './controlsSlice';
 import MissionAdder from './MissionAdder';
+import { Avatar, PastMission } from '../avatars/types';
+import PastMissions from '../missions/PastMissions';
 
 
 const Container = styled.div`
@@ -16,19 +17,33 @@ const Container = styled.div`
 //   width: 'auto';
 // `;
 
+const getDistanceTraveled = (avatar: Avatar): number => 
+  avatar.pastMissions.reduce((totalDistance: number, pastMission: PastMission): number =>  
+    totalDistance + pastMission.distance, 0
+  );
+
 
 const SidePanel = () => {
- // const avatars = useAppSelector(state => state.avatars);
-  const selectedAvatar = useAppSelector(state => state.controls.selectedAvatar);
   const dispatch = useAppDispatch();
+  const selectedAvatarUuid = useAppSelector(state => state.controls.selectedAvatar);
+  const avatars = useAppSelector(state => state.avatars);
+  const avatar = selectedAvatarUuid ? avatars[selectedAvatarUuid] : null;
+  const open = selectedAvatarUuid ? true: false;
 
-  const open = selectedAvatar ? true: false;
+  const distance = avatar ? getDistanceTraveled(avatar) : 0;
+  const name = avatar ? avatar.name : 'No avatar selected';
+  const pastMissions = () => {
+    if (!avatar) {
+      return;
+    }
+    return <PastMissions avatar={avatar} />;
+  };
 
   return (
     <Drawer open={open} variant={'persistent'} anchor={'left'}>
       <Container>
-        <Remove onClick={() => dispatch(unSelectAvatar())} />
-        <br/>
+        <div>{name}</div>
+        <div>Distance traveled: {distance/1000} km </div>
         <button onClick={() => dispatch(openMissionAdder())}>Show Mission Adder</button>
         <br/>
         <button onClick={() => dispatch(closeMissionAdder())}>Close Mission Adder</button>
@@ -36,6 +51,10 @@ const SidePanel = () => {
         <br/>
         <br/>
         <MissionAdder />
+        <br/>
+        <br/>
+        <br/>
+        {pastMissions()}
       </Container>
     </Drawer>
   );
