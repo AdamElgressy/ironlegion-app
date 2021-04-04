@@ -2,14 +2,14 @@ import React from 'react';
 import { MapContainer, useMapEvents, TileLayer } from 'react-leaflet';
 import locations from '../../utils/locations';
 import { useAppDispatch } from '../../store/hooks';
-import { unSelectAvatar } from '../controls/controlsSlice';
+import { closePanels } from '../controls/controlsSlice';
 import Markers from './markers/Markers';
 
 const MapEvents = () => {
   const dispatch = useAppDispatch();
 
   useMapEvents({
-    click: (e) => dispatch(unSelectAvatar()),
+    click: (e) => dispatch(closePanels()),
   });
 
   return null;

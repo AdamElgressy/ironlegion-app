@@ -2,29 +2,26 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { addMissionThunk } from '../missions/missionsSlicer';
 import { v4 as uuidv4 } from 'uuid';
+import FreeMarkerPosition from './FreeMarkerPosition';
 
 
 const MissionAdder = () => {
   const dispatch = useAppDispatch();
   const selectedAvatarUuid = useAppSelector(state => state.controls.selectedAvatar);
-  const newMissionPosition = useAppSelector(state => state.controls.newMissionPosition);
+  const freeMarkerPosition = useAppSelector(state => state.controls.freeMarkerPosition);
 
   const handleClick = () => {
     dispatch(addMissionThunk({
       uuid: uuidv4(),
       name: 'some mission name',
-      endPosition: newMissionPosition,
+      endPosition: freeMarkerPosition,
     }, selectedAvatarUuid!));
   }
 
   return (
     <>
+      <FreeMarkerPosition />
       <button onClick={handleClick}>Add Mission</button>
-      <div>
-        lat: {newMissionPosition.lat.toFixed(2)}
-        <br/>
-        lng: {newMissionPosition.lng.toFixed(2)}
-      </div>
     </>
   );
 };

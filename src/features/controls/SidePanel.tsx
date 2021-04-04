@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { Drawer } from '@material-ui/core';
@@ -12,10 +13,6 @@ const Container = styled.div`
   width: 20vw;
 `;
 
-// const StyledImage = styled.img`
-//   height: 60%;
-//   width: 'auto';
-// `;
 
 const getDistanceTraveled = (avatar: Avatar): number => 
   avatar.pastMissions.reduce((totalDistance: number, pastMission: PastMission): number =>  

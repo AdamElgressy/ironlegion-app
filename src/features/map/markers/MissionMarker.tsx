@@ -4,7 +4,7 @@ import { LeafletEvent, Icon, LatLng } from 'leaflet';
 import { Marker } from 'react-leaflet';
 import markerImg from '../../../assets/marker.png';
 import { Position } from '../../../utils/geo/types';
-import { setNewMissionPosition } from '../../controls/controlsSlice';
+import { setFreeMarkerPosition } from '../../controls/controlsSlice';
 
 
 const MarkerIcon = () =>  new Icon({
@@ -19,7 +19,7 @@ const eventHandlers = (position: Position, dispatch: ReturnType<typeof useAppDis
 
   drag: (event: LeafletEvent) => {
     const { lat, lng }: LatLng = event.target.getLatLng();
-    dispatch(setNewMissionPosition({ lat, lng }))
+    dispatch(setFreeMarkerPosition({ position: {lat, lng} }));
   }
 });
 
@@ -27,18 +27,18 @@ const eventHandlers = (position: Position, dispatch: ReturnType<typeof useAppDis
 const MissionMarker = () => {
   const icon = useMemo(() => MarkerIcon(), []);
   const dispatch = useAppDispatch();
-  const newMissionPosition = useAppSelector(state => state.controls.newMissionPosition);
-  const selectedAvatar = useAppSelector(state => state.controls.selectedAvatar);
+  const freeMarkerPosition = useAppSelector(state => state.controls.freeMarkerPosition);
+  const isBottomPanelOpen = useAppSelector(state => state.controls.isBottomPanelOpen);
   const isMissionAdderOpen = useAppSelector(state => state.controls.isMissionAdderOpen);
-  if (!selectedAvatar) return <></>;
-  if (!isMissionAdderOpen) return <></>;
+
+  if (!isBottomPanelOpen && !isMissionAdderOpen) return <></>;
 
   return (
     <Marker
       icon={icon}
-      position={newMissionPosition}
+      position={freeMarkerPosition}
       draggable
-      eventHandlers={eventHandlers(newMissionPosition, dispatch)}
+      eventHandlers={eventHandlers(freeMarkerPosition, dispatch)}
     />
   );
 };

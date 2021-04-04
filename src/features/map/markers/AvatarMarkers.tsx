@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { Marker } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import { Avatar } from '../../avatars/types';
-import { selectAvatar } from '../../controls/controlsSlice';
+import { selectAvatarAndCloseBottomPanel } from '../../controls/controlsSlice';
 import { getImage } from '../../avatars/avatarImages';
 
 
@@ -15,7 +15,7 @@ const avatarIcon = (type: string) => new Icon({
 
 
 const avatarEventHandler = (avatar: Avatar, dispatch: ReturnType<typeof useAppDispatch>) => ({
-  click: () => dispatch(selectAvatar({ uuid: avatar.uuid })),
+  click: () => dispatch(selectAvatarAndCloseBottomPanel({ uuid: avatar.uuid })),
 });
 
 

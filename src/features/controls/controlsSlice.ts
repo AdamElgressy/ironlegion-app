@@ -1,18 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppThunk } from '../../store/hooks';
 import { Position } from '../../utils/geo/types';
 
 export interface ControlsState {
-  showMissions: boolean,
+  selectedMission: string | null,
   selectedAvatar: string | null,
-  newMissionPosition: Position,
+  showMissions: boolean,
+  freeMarkerPosition: Position,
   isMissionAdderOpen: boolean,
+  isBottomPanelOpen: boolean,
 }
 
 const initialState: ControlsState = {
-  showMissions: true,
+  selectedMission: null,
   selectedAvatar: null,
-  newMissionPosition: { lat: 47, lng: 10},
+  showMissions: true,
+  freeMarkerPosition: { lat: 47, lng: 10},
   isMissionAdderOpen: false,
+  isBottomPanelOpen: false,
 }
 
 export const controlsSlice = createSlice({
@@ -28,8 +33,16 @@ export const controlsSlice = createSlice({
       state.selectedAvatar = null;
     },
 
-    setNewMissionPosition: (state, action: PayloadAction<Position>) => { // TODO: Change payload to obj.
-      state.newMissionPosition = action.payload;
+    selectMission: (state, action: PayloadAction<{ uuid: string }>) => {
+      state.selectedMission = action.payload.uuid;
+    },
+
+    unSelectMission: (state, action: PayloadAction<void>) => {
+      state.selectedMission = null;
+    },
+
+    setFreeMarkerPosition: (state, action: PayloadAction<{ position: Position }>) => {
+      state.freeMarkerPosition = action.payload.position;
     },
 
     openMissionAdder: (state, action: PayloadAction<void>) => {
@@ -40,8 +53,12 @@ export const controlsSlice = createSlice({
       state.isMissionAdderOpen = false;
     },
 
-    toggleShowMissions: (state, action: PayloadAction<void>) => {
-      state.showMissions = !state.showMissions;
+    openBottomPanel: (state, action: PayloadAction<void>) => {
+      state.isBottomPanelOpen = true;
+    },
+
+    closeBottomPanel: (state, action: PayloadAction<void>) => {
+      state.isBottomPanelOpen = false;
     },
   }
 });
@@ -49,10 +66,34 @@ export const controlsSlice = createSlice({
 export const {
   selectAvatar,
   unSelectAvatar,
-  setNewMissionPosition,
+
+  selectMission,
+  unSelectMission,
+
   openMissionAdder,
   closeMissionAdder,
-  toggleShowMissions,
+
+  openBottomPanel,
+  closeBottomPanel,
+
+  setFreeMarkerPosition,
 } = controlsSlice.actions;
 
 export default controlsSlice.reducer;
+
+
+export const closeSidePanelThunk = (): AppThunk => dispatch => {
+  dispatch(closeMissionAdder());
+  dispatch(unSelectAvatar());
+}
+
+export const closePanels = (): AppThunk => dispatch => {
+  dispatch(closeBottomPanel());
+  dispatch(closeSidePanelThunk());
+}
+
+export const selectAvatarAndCloseBottomPanel = ({ uuid }: { uuid: string }): AppThunk => dispatch => {
+  dispatch(closeBottomPanel());
+  dispatch(selectAvatar({ uuid }));
+}
+

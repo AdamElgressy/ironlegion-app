@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Map from './features/map/Map';
-import AvatarAdder from './features/controls/AvatarAdder';
-// import ShowMissionButton from './features/controls/ShowMissionsButton';
+import BottomPanel from './features/controls/BottomPanel';
 import SidePanel from './features/controls/SidePanel';
 
 const Wrapper = styled.div`
@@ -34,7 +33,7 @@ const App = () => {
   return ( 
     <Wrapper>
       <AvatarAdderContainer>
-        <AvatarAdder />
+        <BottomPanel />
       </AvatarAdderContainer>
       
       {/* <ShowMissionContainer>
