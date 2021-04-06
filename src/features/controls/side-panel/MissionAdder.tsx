@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { addMissionThunk } from '../missions/missionsSlicer';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { addMissionThunk } from '../../missions/missionsSlicer';
 import { v4 as uuidv4 } from 'uuid';
-import FreeMarkerPosition from './FreeMarkerPosition';
+import FreeMarkerPosition from '../FreeMarkerPosition';
 
 
 const MissionAdder = () => {

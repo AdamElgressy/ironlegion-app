@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Map from './features/map/Map';
-import BottomPanel from './features/controls/BottomPanel';
-import SidePanel from './features/controls/SidePanel';
+import BottomPanel from './features/controls/bottom-panel/BottomPanel';
+import SidePanel from './features/controls/side-panel/SidePanel';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -16,30 +16,20 @@ const MapContainer = styled.div`
   position: absolute;
 `;
 
-const AvatarAdderContainer = styled.div`
+const BottomPanelContainer = styled.div`
   z-index: 2;
   margin: 10px;
   position: absolute;
 `;
 
-// const ShowMissionContainer = styled.div`
-//   z-index: 2;
-//   margin: 10px;
-//   position: relative;
-// `;
-
 
 const App = () => {
   return ( 
     <Wrapper>
-      <AvatarAdderContainer>
+      <BottomPanelContainer>
         <BottomPanel />
-      </AvatarAdderContainer>
+      </BottomPanelContainer>
       
-      {/* <ShowMissionContainer>
-        <ShowMissionButton />
-      </ShowMissionContainer> */}
-
       <SidePanel />
 
       <MapContainer>

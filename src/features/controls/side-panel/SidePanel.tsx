@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Drawer } from '@material-ui/core';
-import { closeMissionAdder, openMissionAdder } from './controlsSlice';
+import { closeMissionAdder, openMissionAdder } from '../controlsSlice';
 import MissionAdder from './MissionAdder';
-import { Avatar, PastMission } from '../avatars/types';
-import PastMissions from '../missions/PastMissions';
+import { Avatar, PastMission } from '../../avatars/types';
+import PastMissions from '../../missions/PastMissions';
+import AvatarImage from './AvatarImage';
 
 
 const Container = styled.div`
@@ -13,6 +14,9 @@ const Container = styled.div`
   width: 20vw;
 `;
 
+const AvatarContainer = styled.div`
+  height: 20vw;
+`;
 
 const getDistanceTraveled = (avatar: Avatar): number => 
   avatar.pastMissions.reduce((totalDistance: number, pastMission: PastMission): number =>  
@@ -35,10 +39,17 @@ const SidePanel = () => {
     }
     return <PastMissions avatar={avatar} />;
   };
+  const type = avatar ? avatar.type : null;
 
   return (
     <Drawer open={open} variant={'persistent'} anchor={'left'}>
       <Container>
+        <AvatarContainer>
+          <div style={{height: '100%'}}>
+            <AvatarImage type={type} />
+          </div>
+        </AvatarContainer>
+
         <div>{name}</div>
         <div>Distance traveled: {distance/1000} km </div>
         <button onClick={() => dispatch(openMissionAdder())}>Show Mission Adder</button>

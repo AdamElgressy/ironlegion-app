@@ -7,7 +7,7 @@ import { Avatar } from '../avatars/types';
 import { MissionStatus } from '../avatars/common';
 
 
-const Mover = (speed: number, refreshRate: number) => {
+const useMover = (speed: number, refreshRate: number) => {
   const dispatch = useAppDispatch();
   const avatars = useAppSelector(state => state.avatars);
   const missions = useAppSelector(state => state.missions);
@@ -43,4 +43,4 @@ const Mover = (speed: number, refreshRate: number) => {
   });
 }
 
-export default Mover;
+export default useMover;
