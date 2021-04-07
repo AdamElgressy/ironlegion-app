@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Map from './features/map/Map';
+import TogglePanel from './features/controls/bottom-panel/TogglePanel';
 import BottomPanel from './features/controls/bottom-panel/BottomPanel';
 import SidePanel from './features/controls/side-panel/SidePanel';
 
@@ -16,7 +17,7 @@ const MapContainer = styled.div`
   position: absolute;
 `;
 
-const BottomPanelContainer = styled.div`
+const Cont2 = styled.div`
   z-index: 2;
   margin: 10px;
   position: absolute;
@@ -26,10 +27,12 @@ const BottomPanelContainer = styled.div`
 const App = () => {
   return ( 
     <Wrapper>
-      <BottomPanelContainer>
-        <BottomPanel />
-      </BottomPanelContainer>
-      
+      <Cont2>
+      <TogglePanel />
+      </Cont2>
+
+
+      <BottomPanel />
       <SidePanel />
 
       <MapContainer>

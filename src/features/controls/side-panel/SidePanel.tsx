@@ -1,21 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { Drawer } from '@material-ui/core';
-import { closeMissionAdder, openMissionAdder } from '../controlsSlice';
+import { useAppSelector } from '../../../store/hooks';
+import { Drawer, Typography } from '@material-ui/core';
 import MissionAdder from './MissionAdder';
 import { Avatar, PastMission } from '../../avatars/types';
 import PastMissions from '../../missions/PastMissions';
 import AvatarImage from './AvatarImage';
+import '../../../scrollbar.css'
 
 
 const Container = styled.div`
   height: 100vh;
   width: 20vw;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const AvatarContainer = styled.div`
   height: 20vw;
+`;
+
+const PastMissionsContainer = styled.div`
+  overflow-y: auto;
+  flex-grow: 1;
 `;
 
 const getDistanceTraveled = (avatar: Avatar): number => 
@@ -25,7 +34,6 @@ const getDistanceTraveled = (avatar: Avatar): number =>
 
 
 const SidePanel = () => {
-  const dispatch = useAppDispatch();
   const selectedAvatarUuid = useAppSelector(state => state.controls.selectedAvatar);
   const avatars = useAppSelector(state => state.avatars);
   const avatar = selectedAvatarUuid ? avatars[selectedAvatarUuid] : null;
@@ -45,24 +53,27 @@ const SidePanel = () => {
     <Drawer open={open} variant={'persistent'} anchor={'left'}>
       <Container>
         <AvatarContainer>
-          <div style={{height: '100%'}}>
             <AvatarImage type={type} />
-          </div>
         </AvatarContainer>
+        <br/>
+        <Typography>
+          <strong>Name:</strong> {name}
+        </Typography>
+        <Typography>
+          <strong>Distance traveled:</strong> {distance/1000} km
+        </Typography>
 
-        <div>{name}</div>
-        <div>Distance traveled: {distance/1000} km </div>
-        <button onClick={() => dispatch(openMissionAdder())}>Show Mission Adder</button>
-        <br/>
-        <button onClick={() => dispatch(closeMissionAdder())}>Close Mission Adder</button>
-        <br/>
-        <br/>
-        <br/>
         <MissionAdder />
-        <br/>
-        <br/>
-        <br/>
-        {pastMissions()}
+
+        <hr style={{width: '100%'}}/> 
+        <Typography>
+          <strong>Past missions</strong>
+        </Typography>
+        <PastMissionsContainer id="scrollbar">
+          {pastMissions()}
+        </PastMissionsContainer>
+
+
       </Container>
     </Drawer>
   );

@@ -9,27 +9,18 @@ const PastMissionCard = ({ mission }: {mission: PastMission}) => {
 
   return (
     <Card 
-      style={{margin: '10px' }}
+      style={{margin: '10px', backgroundColor: '#D0D0D0' }}
       onMouseOver={() => dispatch(selectMission({ uuid: mission.uuid }))}
       onMouseOut={() => dispatch(unSelectMission())}
     >
       <Typography>
-        Start position: 
+        Latitude: {mission.endPosition.lat.toFixed(2)}
         <br/>
-        Latitude: {mission.startPosition.lat}
-        <br/>
-        Longitude: {mission.startPosition.lng}
-        <br/>
-        <br/>
-        End Position:
-        <br/>
-        Latitude: {mission.endPosition.lat}
-        <br/>
-        Longitude: {mission.endPosition.lng}
+        Longitude: {mission.endPosition.lng.toFixed(2)}
       </Typography>
       <br/>
       <Typography>
-        Distance: {mission.distance/1000} km
+        Distance: {(mission.distance/1000).toFixed(2)} km
       </Typography>
     </Card>
   );

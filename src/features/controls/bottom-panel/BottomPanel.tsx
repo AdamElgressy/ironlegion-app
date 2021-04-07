@@ -6,37 +6,32 @@ import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import {
   Drawer,
   TextField,
-  Tooltip,
-  Fab,
+  Grid,
+  Button,
 } from '@material-ui/core';
-import Add from '@material-ui/icons/Add';
-import { openBottomPanel } from '../controlsSlice';
 import FreeMarkerPosition from '../FreeMarkerPosition';
 import Avatars from './Avatars';
 import { addAvatar } from '../../avatars/avatarsSlice';
 
 
-
 const DrawerContentContainer = styled.div`
   color: gray;
-  background-color: #282828;
   display: flex;
   flex-direction: row;
   height: 25vh;
+  margin: 15px;
+  box-sizing: border-box;
+  overflow-y: none;
 `;
 
-
-const InputContainer = styled.div`
+const StyledForm = styled.form`
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
-  width: 25vh;
+  height: 100%;
+  overflow-y: auto;
 `;
 
-const StyledFab = styled(Fab)`
-  cursor: pointer;
-  height: 60px;
-  width: 60px;
-`;
 
 interface Input {
   name: string
@@ -59,35 +54,35 @@ const SidePanel = () => {
   };
 
   return (
-    <>
-      <Tooltip title="Add hero" aria-label="add-hero">
-        <StyledFab onClick={() => dispatch(openBottomPanel())}>
-          <Add />
-        </StyledFab>
-      </Tooltip>
+    <Drawer open={isBottomPanelOpen} variant={'persistent'} anchor={'bottom'}>
+      <DrawerContentContainer>
+      <Grid container style={{height: "100%" }}>
+        <Grid item xs={2} style={{height: "100%" }}>
+          <StyledForm autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              name="name"
+              label="Name"
+              required
+              inputRef={register({ required: true, maxLength: 20 })}
+            />
+            <FreeMarkerPosition />
+            <Button type="submit">Add</Button>
+          </StyledForm>
+        </Grid>
 
-      <Drawer open={isBottomPanelOpen} variant={'persistent'} anchor={'bottom'}>
-        <DrawerContentContainer>
-          <InputContainer>
-            <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-              <TextField name="name" label="Name" required inputRef={register({ required: true, maxLength: 20 })}/>
-              <br/>
-            <div>
-              <FreeMarkerPosition />
-            </div>
-            <br/>
-              <input type="submit" value="Add"/>
-            </form>
-
-          </InputContainer>
-          <div style={{padding: "15px", flexGrow: 2}}>
-            <Avatars defaultType={type} setType={setType} />
-          </div>
+        <Grid item xs={10} style={{
+          overflowY: 'hidden',
+          overflowX: 'auto',
+          height: '100%',
+          padding: '10px'
+        }}>
+          <Avatars defaultType={type} setType={setType} />
+        </Grid>
+      </Grid>
 
 
-        </DrawerContentContainer>
-      </Drawer>
-    </>
+      </DrawerContentContainer>
+    </Drawer>
   );
 };
 

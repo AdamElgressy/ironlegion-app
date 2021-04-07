@@ -95,5 +95,6 @@ export const closePanels = (): AppThunk => dispatch => {
 export const selectAvatarAndCloseBottomPanel = ({ uuid }: { uuid: string }): AppThunk => dispatch => {
   dispatch(closeBottomPanel());
   dispatch(selectAvatar({ uuid }));
+  dispatch(openMissionAdder());
 }
 

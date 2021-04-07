@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addMissionThunk } from '../../missions/missionsSlicer';
 import { v4 as uuidv4 } from 'uuid';
-import FreeMarkerPosition from '../FreeMarkerPosition';
+import { Button } from '@material-ui/core';
 
 
 const MissionAdder = () => {
@@ -20,8 +20,8 @@ const MissionAdder = () => {
 
   return (
     <>
-      <FreeMarkerPosition />
-      <button onClick={handleClick}>Add Mission</button>
+      {/* <FreeMarkerPosition /> */}
+      <Button onClick={handleClick}>Add Mission</Button>
     </>
   );
 };

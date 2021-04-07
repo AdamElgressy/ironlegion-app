@@ -12,13 +12,13 @@ const Container = styled.div`
 `;
 
 const StyledToggleButton = styled(ToggleButton)`
-  max-height: 100%;
-  width: 150px;
+  height: 100%;
+  width: 140px; // Temporary, due to ToggleButton span not set to 100% height.
 `;
 
 const StyledImg = styled.img`
   max-width: 100%;
-  height: auto;
+  height: 100%;
   margin: auto;
 `;
 
@@ -40,7 +40,6 @@ const Avatars = ({defaultType, setType}: {
         exclusive
         value={defaultType}
         onChange={handleChange}
-        style={{   backgroundColor: '#505050' }}
       >
         {Object.keys(avatarImages).map(type =>
             <StyledToggleButton value={type} aria-label={type}>
